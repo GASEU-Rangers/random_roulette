@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 600px;
+  margin: 40px auto;
+}
+
+.option {
+  margin-bottom: 8px;
+}
+
+.option input {
+  margin-right: 10px;
+}
+
+.buttons {
+  margin: 10px 0;
+}
+
+#result {
+  font-weight: bold;
+  margin-top: 15px;
+}
