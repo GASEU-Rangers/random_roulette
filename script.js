@@ -1,34 +1,59 @@
+// 선택지 추가
 function addOption() {
   const options = document.getElementById("options");
 
   const div = document.createElement("div");
   div.className = "option";
+
   div.innerHTML = `
-    이름: <input type="text">
-    확률: <input type="number" value="0">
+    이름: <input type="text" placeholder="이름">
+    확률: <input type="number" value="0" min="0">
   `;
 
   options.appendChild(div);
 }
 
+// 확률 업데이트
 function update() {
-  alert("확률이 업데이트되었습니다 (실제 계산은 spin에서)");
+  alert("확률이 업데이트되었습니다!");
 }
 
+// 룰렛 돌리기
 function spin() {
   const optionDivs = document.querySelectorAll(".option");
-
   let pool = [];
+  let totalPercent = 0;
 
   optionDivs.forEach(div => {
-    const name = div.children[0].value;
-    const chance = Number(div.children[1].value);
+    const inputs = div.querySelectorAll("input");
+    const name = inputs[0].value;
+    const chance = Number(inputs[1].value);
 
-    for (let i = 0; i < chance; i++) {
-      pool.push(name);
+    if (name && chance > 0) {
+      totalPercent += chance;
+
+      for (let i = 0; i < chance; i++) {
+        pool.push(name);
+      }
     }
   });
 
+  // 확률이 100% 초과
+  if (totalPercent > 100) {
+    document.getElementById("result").innerText =
+      "정상적이지 않는 퍼센트 값입니다.";
+    return;
+  }
+
+  // 선택지가 없음
+  if (pool.length === 0) {
+    document.getElementById("result").innerText =
+      "결과: 선택지가 없습니다";
+    return;
+  }
+
+  // 결과
   const result = pool[Math.floor(Math.random() * pool.length)];
-  document.getElementById("result").innerText = "결과: " + result;
+  document.getElementById("result").innerText =
+    "결과: " + result;
 }
