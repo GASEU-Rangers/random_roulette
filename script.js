@@ -13,11 +13,6 @@ function addOption() {
   options.appendChild(div);
 }
 
-// 확률 업데이트
-function update() {
-  alert("확률이 업데이트되었습니다!");
-}
-
 // 룰렛 돌리기
 function spin() {
   const optionDivs = document.querySelectorAll(".option");
