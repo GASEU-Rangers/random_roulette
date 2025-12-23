@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>모노폴리 랜덤 룰렛</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>모노폴리 랜덤 룰렛</h1>
+
+    <div id="options">
+      <div class="option">
+        이름: <input type="text" value="성공">
+        확률: <input type="number" value="50">
+      </div>
+
+      <div class="option">
+        이름: <input type="text" value="실패">
+        확률: <input type="number" value="50">
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="addOption()">선택지 추가</button>
+      <button onclick="update()">확률 업데이트</button>
+      <button onclick="spin()">룰렛 돌리기</button>
+    </div>
+
+    <p id="result">결과: </p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
