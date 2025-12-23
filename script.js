@@ -26,7 +26,7 @@ function spin() {
 
     // 공백 / 문자 차단
     if (raw === "") {
-      showError("확률에 공백은 사용할 수 없습니다.");
+      showError("확률에 공백 또는 문자는 사용할 수 없습니다.");
       return;
     }
 
