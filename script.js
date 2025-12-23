@@ -36,7 +36,14 @@ function spin() {
   // 확률이 100% 초과
   if (totalPercent > 100) {
     document.getElementById("result").innerText =
-      "정상적이지 않는 퍼센트 값입니다.";
+      "정상적이지 않는 퍼센트 값입니다. (사유: 퍼센트 100 초과)";
+    return;
+  }
+
+    // 확률이 100% 미만
+  if (totalPercent < 100) {
+    document.getElementById("result").innerText =
+      "정상적이지 않는 퍼센트 값입니다. (사유: 퍼센트 100 미만)";
     return;
   }
 
