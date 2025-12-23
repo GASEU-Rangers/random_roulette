@@ -7,7 +7,7 @@ function addOption() {
 
   div.innerHTML = `
     이름: <input type="text" placeholder="이름">
-    확률: <input type="number" value="0" min="0">
+    확률: <input type="number" value="0" min="0" step="0.01" required>
   `;
 
   options.appendChild(div);
@@ -16,46 +16,63 @@ function addOption() {
 // 룰렛 돌리기
 function spin() {
   const optionDivs = document.querySelectorAll(".option");
-  let pool = [];
-  let totalPercent = 0;
+  let items = [];
+  let total = 0;
 
-  optionDivs.forEach(div => {
+  for (let div of optionDivs) {
     const inputs = div.querySelectorAll("input");
-    const name = inputs[0].value;
-    const chance = Number(inputs[1].value);
+    const name = inputs[0].value.trim();
+    const raw = inputs[1].value;
 
-    if (name && chance > 0) {
-      totalPercent += chance;
-
-      for (let i = 0; i < chance; i++) {
-        pool.push(name);
-      }
+    // 공백 / 문자 차단
+    if (raw === "") {
+      showError("확률에 공백은 사용할 수 없습니다.");
+      return;
     }
-  });
 
-  // 확률이 100% 초과
-  if (totalPercent > 100) {
-    document.getElementById("result").innerText =
-      "정상적이지 않는 퍼센트 값입니다. (사유: 퍼센트 100 초과)";
+    const chance = Number(raw);
+
+    // NaN, Infinity, -Infinity 차단
+    if (!Number.isFinite(chance)) {
+      showError("정상적이지 않은 퍼센트 값입니다.");
+      return;
+    }
+
+    // 음수 차단
+    if (chance < 0) {
+      showError("확률은 0 이상이어야 합니다.");
+      return;
+    }
+
+    // 무명 차단
+    if (!name) continue;
+
+    total += chance;
+    items.push({ name, chance });
+  }
+
+  // 확률 ≠ 100
+  if (Math.abs(total - 100) > 0.000001) {
+    showError("잘못된 입력값; 확률의 합은 반드시 100이어야 합니다.");
     return;
   }
 
-    // 확률이 100% 미만
-  if (totalPercent < 100) {
-    document.getElementById("result").innerText =
-      "정상적이지 않는 퍼센트 값입니다. (사유: 퍼센트 100 미만)";
-    return;
-  }
+  // 실수 확률 기반 추첨
+  let r = Math.random() * 100;
+  let acc = 0;
 
-  // 선택지가 없음
-  if (pool.length === 0) {
-    document.getElementById("result").innerText =
-      "결과: 선택지가 없습니다";
-    return;
+  for (let item of items) {
+    acc += item.chance;
+    if (r <= acc) {
+      document.getElementById("result").innerText =
+        "결과: " + item.name;
+      return;
+    }
   }
-
-  // 결과
-  const result = pool[Math.floor(Math.random() * pool.length)];
-  document.getElementById("result").innerText =
-    "결과: " + result;
 }
+
+// 에러 출력 함수
+function showError(message) {
+  document.getElementById("result").innerText = message;
+}
+
