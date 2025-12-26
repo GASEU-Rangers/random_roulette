@@ -1,5 +1,5 @@
 # 모노폴리 랜덤 룰렛
-
+https://gaseu-rangers.github.io/random_roulette/
 확률과 선택지를 넣어 결과를 산출하는 간단한 시스템 룰렛입니다.
 
 ## 사용 방법
