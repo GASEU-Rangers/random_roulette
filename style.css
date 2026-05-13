@@ -23,3 +23,25 @@ body {
   font-weight: bold;
   margin-top: 15px;
 }
+
+/* 추가 */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+td,
+th {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: center;
+}
