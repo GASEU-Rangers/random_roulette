@@ -75,4 +75,3 @@ function spin() {
 function showError(message) {
   document.getElementById("result").innerText = message;
 }
-~
